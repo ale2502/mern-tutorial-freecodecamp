@@ -2,6 +2,7 @@ import express from 'express';
 import notesRoutes from './routes/notesRoutes.js';
 import { connectDB } from './config/db.js';
 import dotenv from 'dotenv';
+import rateLimiter from './middleware/rateLimiter.js';
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ connectDB();
 
 // middleware
 app.use(express.json()); // This middleware will parse JSON bodies: req.body
+app.use(rateLimiter);
 
 // Ex. on how middlewares work
 app.use((req, res, next) => {
